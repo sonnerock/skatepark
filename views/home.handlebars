@@ -1,49 +1,43 @@
-    <h1>Skate Park</h1>
+   <h1>Skate Park</h1>
 
-    <div class="py-4">
-      <h2>Lista de participantes</h2>
+<div class="py-4">
+  <h2>Lista de participantes</h2>
 
-      <hr />
+  <hr />
 
-      <table class="table table-dark">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Foto</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Años de experiencia</th>
-            <th scope="col">Especialidad</th>
-            <th scope="col">Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td><div></div></td>
-            <td>Tony Hawk</td>
-            <td>12</td>
-            <td>Kickflip</td>
-            <td class="text-success font-weight-bold">Aprobado</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td><div></div></td>
-            <td>Evelien Bouilliart</td>
-            <td>10</td>
-            <td>Heelflip</td>
-            <td class="text-success font-weight-bold">Aprobado</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td><div></div></td>
-            <td>Danny Way</td>
-            <td>8</td>
-            <td>Ollie</td>
-            <td class="text-warning font-weight-bold">En revisión</td>
-          </tr>
-        </tbody>
-      </table>
-      <a href="/login">Iniciar Sesión</a> |
-      <a href="/registro">Registrarme</a>
-    </div>
-  
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Foto</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Años de experiencia</th>
+        <th scope="col">Especialidad</th>
+        <th scope="col">Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each skaters}}
+        <tr>
+          <th scope="row">{{this.id}}</th>
+          <td><div><img src="{{this.foto}}" alt="foto {{this.nombre}}" style="width: inherit;"></div></td>
+          <td>{{this.nombre}}</td>
+          <td>{{this.anos_experiencia}}</td>
+          <td>{{this.especialidad}}</td>
+
+          {{#if skater.estado}}
+          <td class="text-success font-weight-bold">
+              aprobado
+          </td>
+          {{else}}
+          <td class="text-warning font-weight-bold">
+              pendiente
+          </td>
+          {{/if}}
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <a href="/login">Iniciar Sesión</a>
+  <a href="/registro">Registrarme</a>
+</div>

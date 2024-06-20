@@ -55,7 +55,7 @@ router.post("/registro", async (req, res) => {
             })
         } else {
             const foto = req.files.foto
-            const fotoUrl = path.join(import.meta.dirname, "../public/fotos", file.name)
+            const fotoUrl = path.join(import.meta.dirname, "../public/photos", file.name)
             const dbUrl = path.join("fotos", file.name)
 
             data.foto = dbUrl
