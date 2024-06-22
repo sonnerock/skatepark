@@ -14,10 +14,9 @@ app.engine("handlebars", engine())
 app.set("view engine", "handlebars")
 
 app.use(fileUpload())
-
 app.use(express.json())
 
-app.use(express.static("public"))
+app.use(express.static("static"))
 
 app.use("/", views)
 app.use("/skaters", skaters)

@@ -1,6 +1,6 @@
 import { Router } from "express"
+import { getSkater, createSkater } from "../models/skaters.js"
 import jwt from "jsonwebtoken"
-import { createSkaters, getSkaters, updateSkaters, deleteSkaters, getEmailSkaters, updateSkaterStatus } from "../models/skaters.js"
 import path from "node:path"
 
 const router = Router()
@@ -8,7 +8,7 @@ const router = Router()
 router.post("/login", async (req, res) => {
     try {
         const data = req.body
-        const skater = await getEmailSkaters(data)
+        const skater = await getSkater(data)
 
         if (skater.rowCount == 0) {
             res.status(404).json({
@@ -47,23 +47,27 @@ router.post("/registro", async (req, res) => {
         const { email } = req.body
         const data = req.body
 
-        const skater = await getSkaters({ email })
+        const isSkater = await getSkater({ email })
 
-        if (skater.rowCount > 0) {
+        if (isSkater.rowCount > 0) {
             res.status(401).json({
                 message: "Usuario existe"
             })
         } else {
-            const foto = req.files.foto
-            const fotoUrl = path.join(import.meta.dirname, "../public/photos", file.name)
-            const dbUrl = path.join("fotos", file.name)
+            const file = req.files.foto
+
+            const photoUrl = path.join(import.meta.dirname, "../static/photos", file.name)
+            const dbUrl = path.join("photos", file.name)
+
+            file.mv(photoUrl)
 
             data.foto = dbUrl
-            const result = await createSkaters(data)
+            
+            const result = await createSkater(data)
 
             const secret = process.env.JWT_SECRET
             const payload = {
-                email: data.email,
+                email: email,
                 nombre: data.nombre,
                 anos_experiencia: data.anos_experiencia,
                 especialidad: data.especialidad
